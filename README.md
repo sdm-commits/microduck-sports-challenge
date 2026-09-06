@@ -18,6 +18,15 @@ Every controller that moves the robot in either evaluation is a neural network t
 observations: the walk, the approach, the kick and the celebration. The only hand-written logic is two event
 switches (the approach policy's own trigger output, and the scored flag) and the anti-nudge scoring rule.
 
+## Watch it
+
+![Microduck aiming a penalty and celebrating](docs/preview.gif)
+
+Two of the nine shots, at double speed. The commanded zone is printed top left and highlighted in yellow on the goal
+line, so you can check the call against the outcome. The full clip is **[result.mp4](result.mp4)** (48 s, 9 shots,
+seeds 0-8, 8 of them on target). Those are the first nine seeds of the evaluation below, not selected takes;
+`scripts/render_result_video.sh` regenerates it.
+
 After a goal the duck celebrates: a second learned policy takes over and bounces, nods and sweeps its head, then
 settles back to standing, all on servo torques with the floating base free to fall.
 

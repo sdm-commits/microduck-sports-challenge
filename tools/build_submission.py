@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parent.parent
 INCLUDE_DIRS = ["duck_kick", "tests", "scripts", "tools", "evidence"]
 INCLUDE_FILES = ["README.md", "LICENSE", "NOTICE", "requirements.txt", ".gitignore"]
 EXCLUDE_REL = set()
-EXCLUDE_SUFFIXES = {".pyc", ".log", ".mp4", ".zip"}
+EXCLUDE_SUFFIXES = {".pyc", ".log", ".mp4", ".zip", ".gif"}
 EXCLUDE_NAMES = {".DS_Store"}
 EXCLUDE_PARTS = {"__pycache__", ".git", ".venv", "runs"}
 

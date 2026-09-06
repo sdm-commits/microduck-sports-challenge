@@ -5,5 +5,4 @@ __pycache__/
 runs/
 *.log
 /eval*.json      # scratch evaluations written at the repo root; evidence/ is tracked
-/result.mp4
 /submission.zip
