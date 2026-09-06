@@ -1,0 +1,1 @@
+Source: https://github.com/apirrone/Open_Duck_Playground commit b9be205ac64488c23504ca42e5ec790337adeec3 (playground/open_duck_mini_v2/xmls). Code in that repo is Apache-2.0 (DeepMind / Antoine Pirrone - Steve Nguyen).

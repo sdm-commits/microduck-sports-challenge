@@ -1,0 +1,49 @@
+<mujoco model="microduck_kick_scene">
+  <!-- Open Duck Mini v2 (Microduck) + floor + ball. Robot model included unchanged from Open_Duck_Playground. -->
+  <include file="open_duck_mini_v2.xml"/>
+  <option timestep="0.002" iterations="1" ls_iterations="5"/>
+  <visual>
+    <headlight diffuse="0.7 0.7 0.7" ambient="0.35 0.35 0.35" specular="0.1 0.1 0.1"/>
+    <global azimuth="150" elevation="-20" offwidth="960" offheight="540"/>
+    <quality shadowsize="2048"/>
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.75 0.85 1.0" rgb2="0.45 0.55 0.75" width="256" height="1536"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.25 0.5 0.25" rgb2="0.22 0.45 0.22" markrgb="0.9 0.9 0.9" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="4 4" reflectance="0.05"/>
+    <material name="ball_mat" rgba="1.0 0.35 0.1 1"/>
+    <material name="goal_mat" rgba="1 1 1 1"/>
+    <material name="net_mat" rgba="0.92 0.92 0.92 0.35"/>
+    <material name="zone_off" rgba="1 1 1 0.25"/>
+    <material name="zone_on" rgba="1.0 0.9 0.1 0.9"/>
+  </asset>
+  <worldbody>
+    <light name="sun" pos="0.5 -1 2.5" dir="-0.2 0.4 -1" directional="true" castshadow="true"/>
+    <geom name="floor" type="plane" size="0 0 0.01" material="groundplane" friction="0.8" condim="3" contype="1" conaffinity="1" priority="1"/>
+    <!-- Goal: line at x = 1.0 m, 0.75 m wide (y in [-0.375, 0.375]), crossbar at 0.25 m. Posts, crossbar and net collide
+         with the ball (they stop it); the goal line and zone markers are visual only. -->
+    <geom name="goal_line" type="box" pos="1.0 0 0.0005" size="0.005 0.375 0.0005" material="goal_mat" contype="0" conaffinity="0"/>
+    <geom name="post_left"  type="cylinder" pos="1.0  0.375 0.125" size="0.012 0.125" material="goal_mat" contype="1" conaffinity="1"/>
+    <geom name="post_right" type="cylinder" pos="1.0 -0.375 0.125" size="0.012 0.125" material="goal_mat" contype="1" conaffinity="1"/>
+    <geom name="crossbar" type="capsule" fromto="1.0 -0.375 0.25 1.0 0.375 0.25" size="0.012" material="goal_mat" contype="1" conaffinity="1"/>
+    <geom name="net_back" type="box" pos="1.16 0 0.125" size="0.005 0.375 0.125" material="net_mat" contype="1" conaffinity="1" friction="0.5"/>
+    <geom name="net_left" type="box" pos="1.08 0.375 0.125" size="0.08 0.005 0.125" material="net_mat" contype="1" conaffinity="1"/>
+    <geom name="net_right" type="box" pos="1.08 -0.375 0.125" size="0.08 0.005 0.125" material="net_mat" contype="1" conaffinity="1"/>
+    <geom name="net_top" type="box" pos="1.08 0 0.25" size="0.08 0.375 0.005" material="net_mat" contype="1" conaffinity="1"/>
+    <!-- three target zones (visual only): left (+y), centre, right (-y); the commanded one is highlighted at reset -->
+    <geom name="zone_left"   type="box" pos="1.02  0.25 0.001" size="0.02 0.125 0.001" material="zone_off" contype="0" conaffinity="0"/>
+    <geom name="zone_centre" type="box" pos="1.02  0.00 0.001" size="0.02 0.125 0.001" material="zone_off" contype="0" conaffinity="0"/>
+    <geom name="zone_right"  type="box" pos="1.02 -0.25 0.001" size="0.02 0.125 0.001" material="zone_off" contype="0" conaffinity="0"/>
+    <body name="ball" pos="0.10 -0.08 0.04">
+      <freejoint name="ball_free"/>
+      <geom name="ball" type="sphere" size="0.04" mass="0.05" material="ball_mat" friction="0.7 0.005 0.0005" condim="6" contype="1" conaffinity="1" priority="2" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+    </body>
+    <!-- broadcast view: robot in the foreground, goal at the back right -->
+    <camera name="side" pos="-0.55 -1.05 0.48" xyaxes="0.707 -0.707 0 0.176 0.176 0.967" fovy="42"/>
+    <!-- wide broadcast view for the walk-up match -->
+    <camera name="wide" pos="-0.9 -1.35 0.6" xyaxes="0.734 -0.679 0 0.178 0.192 0.966" fovy="42"/>
+    <!-- straight behind the robot, looking at the goal (used as picture-in-picture) -->
+    <camera name="behind" pos="-0.6 -0.05 0.42" xyaxes="0 -1 0 0.3 0 1" fovy="50"/>
+    <camera name="track" mode="trackcom" pos="0.6 -1.0 0.45" xyaxes="0.86 0.5 0 -0.2 0.35 0.9"/>
+  </worldbody>
+</mujoco>

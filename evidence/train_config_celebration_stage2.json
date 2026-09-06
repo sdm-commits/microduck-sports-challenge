@@ -1,0 +1,158 @@
+{
+  "env": {
+    "control": {
+      "sim_dt": 0.002,
+      "ctrl_dt": 0.02,
+      "action_scale": 1.0,
+      "action_latency_steps": 1,
+      "episode_seconds": 4.5
+    },
+    "reference": {
+      "t_shift_end": 0.1494962882442667,
+      "t_back_end": 0.31706176765951827,
+      "t_strike_end": 0.37706176765951827,
+      "t_recover_end": 0.6956114063486699,
+      "weight_shift_roll": 0.07765302176608305,
+      "swing_abduction_roll": -0.06541473223890773,
+      "backswing_hip_pitch": 0.3700561571386918,
+      "backswing_knee": 0.47838412836100996,
+      "strike_hip_pitch": -1.0,
+      "strike_knee": -0.2599733039034778,
+      "strike_ankle": 0.08223375234152544,
+      "left_hip_pitch_compensation": -0.05781432472883917
+    },
+    "obs": {
+      "gyro_scale": 0.5,
+      "joint_vel_scale": 0.1,
+      "ball_vel_scale": 0.5,
+      "noise_gyro": 0.1,
+      "noise_gravity": 0.03,
+      "noise_joint_pos": 0.02,
+      "noise_joint_vel": 1.0,
+      "noise_ball_pos": 0.005,
+      "noise_ball_vel": 0.05
+    },
+    "randomization": {
+      "enabled": true,
+      "floor_friction": [
+        0.5,
+        1.0
+      ],
+      "body_mass_scale": [
+        0.9,
+        1.1
+      ],
+      "ball_mass_scale": [
+        0.8,
+        1.2
+      ],
+      "kp_scale": [
+        0.9,
+        1.1
+      ],
+      "joint_frictionloss_scale": [
+        0.9,
+        1.1
+      ],
+      "target_probs": [
+        0.5,
+        0.25,
+        0.25
+      ],
+      "init_joint_noise": 0.015,
+      "ball_x": [
+        0.08,
+        0.1
+      ],
+      "ball_y": [
+        -0.105,
+        -0.065
+      ]
+    },
+    "goal": {
+      "goal_x": 1.0,
+      "half_width": 0.375,
+      "crossbar_z": 0.25,
+      "zone_centers_y": [
+        0.25,
+        0.0,
+        -0.25
+      ],
+      "zone_half_width": 0.125,
+      "zone_names": [
+        "left",
+        "centre",
+        "right"
+      ]
+    },
+    "celebration": {
+      "enabled": true,
+      "duration": 1.6,
+      "ramp": 0.25,
+      "bounce_hz": 2.0,
+      "bounce_knee": 0.35,
+      "bounce_hip_pitch": 0.12,
+      "bounce_ankle": 0.1,
+      "head_yaw_amp": 0.9,
+      "head_yaw_hz": 1.5,
+      "head_pitch_amp": 0.35,
+      "head_pitch_hz": 3.0,
+      "head_roll_amp": 0.25,
+      "neck_lift": -0.2
+    },
+    "reward": {
+      "imitation": 2.0,
+      "liveliness": 0.3,
+      "imitation_k": 20.0,
+      "target_progress": 20.0,
+      "aim": 0.0,
+      "goal_on_target": 15.0,
+      "goal_other_zone": 1.0,
+      "miss": 0.0,
+      "foot_contact_bonus": 2.0,
+      "approach": 0.3,
+      "tilt": 2.0,
+      "height": 2.0,
+      "heading": 0.5,
+      "action_rate": 0.1,
+      "torque": 0.002,
+      "joint_vel": 0.0001,
+      "alive": 0.1,
+      "termination": -5.0
+    },
+    "termination": {
+      "min_base_height": 0.09,
+      "max_tilt_gravity_z": -0.5
+    },
+    "ball_radius": 0.04
+  },
+  "ppo": {
+    "total_steps": 14000000,
+    "num_envs": 64,
+    "num_workers": 8,
+    "rollout_steps": 64,
+    "epochs": 5,
+    "minibatch_size": 1024,
+    "lr": 0.0003,
+    "lr_final_frac": 0.1,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "clip_eps": 0.2,
+    "entropy_coef": 0.0,
+    "value_coef": 0.5,
+    "max_grad_norm": 1.0,
+    "hidden": [
+      256,
+      256
+    ],
+    "init_log_std": -1.0,
+    "min_log_std": -2.0,
+    "checkpoint_every_iters": 50,
+    "seed": 6
+  },
+  "device": "cpu",
+  "init_checkpoint": "runs/celeb/final.pt",
+  "reset_log_std": -1.4,
+  "env_kind": "celebration",
+  "kick_checkpoint": "duck_kick/checkpoints/final.pt"
+}

@@ -1,0 +1,457 @@
+{
+  "policy": "PPO actor-critic MLP, deterministic mean action at evaluation",
+  "checkpoint": {
+    "file": "duck_kick/checkpoints/final.pt",
+    "sha256": "9911dd64b3a0018c59e808133a957c45e5b4dc943579d9eee089a91795f1bbdc",
+    "bytes": 648150
+  },
+  "training": {
+    "stage1": {
+      "command": "python -u -m duck_kick.train --total-steps 40000000 --num-envs 256 --num-workers 64 --rollout-steps 64 --seed 0 --out runs/official --device cuda",
+      "steps": 39993344,
+      "iterations": 2441,
+      "wall_clock_s": 3985,
+      "rewards": "aim penalty 1.0 active above 0.2 m/s, miss -3, goal on target +10, heading to +x, no log-std floor",
+      "shootout60_on_target": 26,
+      "note": "policy learned soft taps on left targets and exploration collapsed (log-std -2.95)"
+    },
+    "stage2": {
+      "command": "python -u -m duck_kick.train --total-steps 20000000 --num-envs 256 --num-workers 64 --rollout-steps 64 --seed 1 --out runs/official_B --device cuda --init-checkpoint <stage1 final.pt> --reset-log-std -1.2",
+      "steps": 19988480,
+      "iterations": 1220,
+      "wall_clock_s": 2035,
+      "rewards": "aim term 0, miss 0, goal on target +15, other zone +1, heading toward the commanded zone (0.5), log-std floor -2.0",
+      "shootout60_on_target": 56
+    },
+    "machine": "HIM Compute standard workspace, 128 vCPU, NVIDIA L4, Ubuntu 24.04, Python 3.12.3, torch 2.8.0+cu128, mujoco 3.12.0",
+    "discarded": "a from-scratch run with the stage-2 rewards but the aim penalty still on (aim 2.0) scored 9/60 and is not used"
+  },
+  "evaluation_local_mac": {
+    "command": "python -m duck_kick.evaluate --checkpoint duck_kick/checkpoints/final.pt --shots 60 --json eval_ppo.json",
+    "summary": {
+      "shots": 60,
+      "on_target": 56,
+      "goals_any_zone": 60,
+      "misses": 0,
+      "no_goal": 0,
+      "falls": 0,
+      "contacts": 60,
+      "on_target_rate": 0.9333333333333333,
+      "kick_rate_legacy": 1.0,
+      "crossing_time_s_mean": 0.9746666666666673,
+      "max_ball_speed_mean": 1.2339799217026353,
+      "per_zone": {
+        "centre": {
+          "shots": 20,
+          "on_target": 20,
+          "goals_any_zone": 20,
+          "crossing_y_abs_error_mean": 0.03439711503282616
+        },
+        "left": {
+          "shots": 20,
+          "on_target": 17,
+          "goals_any_zone": 20,
+          "crossing_y_abs_error_mean": 0.07069798453929099
+        },
+        "right": {
+          "shots": 20,
+          "on_target": 19,
+          "goals_any_zone": 20,
+          "crossing_y_abs_error_mean": 0.07114330471893185
+        }
+      }
+    }
+  },
+  "evaluation_on_him_machine": {
+    "summary": {
+      "shots": 60,
+      "on_target": 56,
+      "goals_any_zone": 60,
+      "misses": 0,
+      "no_goal": 0,
+      "falls": 0,
+      "contacts": 60,
+      "on_target_rate": 0.9333333333333333,
+      "kick_rate_legacy": 1.0,
+      "crossing_time_s_mean": 0.9746666666666673,
+      "max_ball_speed_mean": 1.2339799306800914,
+      "per_zone": {
+        "centre": {
+          "shots": 20,
+          "on_target": 20,
+          "goals_any_zone": 20,
+          "crossing_y_abs_error_mean": 0.03439679283625072
+        },
+        "left": {
+          "shots": 20,
+          "on_target": 17,
+          "goals_any_zone": 20,
+          "crossing_y_abs_error_mean": 0.07069798415301544
+        },
+        "right": {
+          "shots": 20,
+          "on_target": 19,
+          "goals_any_zone": 20,
+          "crossing_y_abs_error_mean": 0.07114330604382432
+        }
+      }
+    }
+  },
+  "zero_action_baseline": {
+    "summary": {
+      "shots": 60,
+      "on_target": 0,
+      "goals_any_zone": 0,
+      "misses": 0,
+      "no_goal": 60,
+      "falls": 0,
+      "contacts": 0,
+      "on_target_rate": 0.0,
+      "kick_rate_legacy": 0.0,
+      "crossing_time_s_mean": NaN,
+      "max_ball_speed_mean": 0.0022333208838407987,
+      "per_zone": {
+        "centre": {
+          "shots": 20,
+          "on_target": 0,
+          "goals_any_zone": 0,
+          "crossing_y_abs_error_mean": null
+        },
+        "left": {
+          "shots": 20,
+          "on_target": 0,
+          "goals_any_zone": 0,
+          "crossing_y_abs_error_mean": null
+        },
+        "right": {
+          "shots": 20,
+          "on_target": 0,
+          "goals_any_zone": 0,
+          "crossing_y_abs_error_mean": null
+        }
+      }
+    }
+  },
+  "video": {
+    "file": "result.mp4",
+    "shots": 9,
+    "seeds": "0-8",
+    "on_target": 8,
+    "command": "scripts/render_result_video.sh"
+  },
+  "celebration": {
+    "checkpoint": {
+      "file": "duck_kick/checkpoints/celebration.pt",
+      "sha256": "d6e41786427a6ee0fe76f78a0f35735d0e3f9b20c5c2989ca72f022691e2bd12"
+    },
+    "stage1": {
+      "command": "python -m duck_kick.train --env celebration --kick-checkpoint duck_kick/checkpoints/final.pt --total-steps 12000000 --num-envs 64 --num-workers 8 --seed 5 --out runs/celeb",
+      "steps": 11997184,
+      "wall_clock_s": 3273,
+      "learner_controls": "celebration window + 0.4 s"
+    },
+    "stage2": {
+      "command": "python -m duck_kick.train --env celebration --kick-checkpoint duck_kick/checkpoints/final.pt --init-checkpoint runs/celeb/final.pt --reset-log-std -1.4 --total-steps 14000000 --num-envs 64 --num-workers 8 --seed 6 --out runs/celeb2",
+      "steps": 13996032,
+      "wall_clock_s": 3580,
+      "learner_controls": "from the goal to the end of the episode"
+    },
+    "machine": "Apple Silicon Mac, 8 cores, CPU only",
+    "evaluation_combined_controller_60_shots": {
+      "shots": 60,
+      "on_target": 54,
+      "goals_any_zone": 59,
+      "misses": 0,
+      "no_goal": 1,
+      "falls": 0,
+      "contacts": 60,
+      "on_target_rate": 0.9,
+      "kick_rate_legacy": 1.0,
+      "crossing_time_s_mean": 0.9725423728813567,
+      "max_ball_speed_mean": 1.2329847931443894,
+      "celebrated": 59,
+      "celebration_rmse_rad_mean": 0.07631520253788711,
+      "celebration_max_head_yaw_deg_mean": 44.455789534029044,
+      "per_zone": {
+        "centre": {
+          "shots": 20,
+          "on_target": 20,
+          "goals_any_zone": 20,
+          "crossing_y_abs_error_mean": 0.027224320262923506
+        },
+        "left": {
+          "shots": 20,
+          "on_target": 17,
+          "goals_any_zone": 20,
+          "crossing_y_abs_error_mean": 0.06504038288710835
+        },
+        "right": {
+          "shots": 20,
+          "on_target": 17,
+          "goals_any_zone": 19,
+          "crossing_y_abs_error_mean": 0.07231206272158246
+        }
+      }
+    },
+    "failed_alternative": {
+      "description": "one network trained end-to-end on kick + celebration (warm start from the kick policy, 60M steps): learned to avoid scoring because tracking the celebration reference is harder than standing",
+      "shootout60_on_target": 16,
+      "file": "evidence/eval_shootout60_single_network_both_phases_FAILED.json"
+    }
+  },
+  "evaluation_rule_note": "on_target requires no fall anywhere in the 4.5 s episode, including during the celebration",
+  "walk_up_match": {
+    "checkpoints": {
+      "approach.pt": {
+        "file": "duck_kick/checkpoints/approach.pt",
+        "sha256": "3bc27536f8f27c90f85215102b2d7b01286ffa32df6ae49b9927f29e93840ac8"
+      },
+      "match_kick.pt": {
+        "file": "duck_kick/checkpoints/match_kick.pt",
+        "sha256": "162348c87ef551d4112a45ae2d613c7b8d21fe66e6ae6ce72da74cd2d9f3f26a"
+      },
+      "walk.onnx": {
+        "file": "duck_kick/checkpoints/walk.onnx",
+        "sha256": "32f3b8bb2d86d83fdf5c78f3dccd6cbb8a3f98410f65d891f10bed70b6f6af36"
+      }
+    },
+    "co_training": "3 rounds: collect a bank of real hand-over states from the current approach policy -> fine-tune the kick on that bank (60% of resets) -> retrain the approach against that kick",
+    "final_round_steps": {
+      "kick": 23998464,
+      "approach": 5999616
+    },
+    "commands": [
+      "python tools/collect_state_bank.py --approach-checkpoint <approach> --episodes 400 --out bank.npz",
+      "python -m duck_kick.train --total-steps 24000000 --num-envs 64 --num-workers 8 --seed 61 --out runs/kick --init-checkpoint <prev kick> --reset-log-std -1.7 --env-overrides '{\"randomization.state_bank_path\": \"bank.npz\", \"randomization.state_bank_prob\": 0.6, \"celebration.enabled\": false}'",
+      "python -m duck_kick.train --env approach --kick-checkpoint runs/kick/final.pt --init-checkpoint <prev approach> --reset-log-std -1.4 --total-steps 6000000 --num-envs 96 --num-workers 8 --seed 62 --out runs/approach"
+    ],
+    "evaluation_60_shots": {
+      "shots": 60,
+      "on_target": 31,
+      "goals_any_zone": 41,
+      "misses": 11,
+      "no_goal": 8,
+      "falls": 0,
+      "contacts": 56,
+      "on_target_rate": 0.5166666666666667,
+      "kick_rate_legacy": 0.9333333333333333,
+      "crossing_time_s_mean": 4.57807692307664,
+      "max_ball_speed_mean": 0.8493349665231417,
+      "celebrated": 41,
+      "celebration_rmse_rad_mean": 0.1940260153177092,
+      "celebration_max_head_yaw_deg_mean": 4.541658239505859,
+      "per_zone": {
+        "centre": {
+          "shots": 20,
+          "on_target": 8,
+          "goals_any_zone": 11,
+          "crossing_y_abs_error_mean": 0.3221316941210777
+        },
+        "left": {
+          "shots": 20,
+          "on_target": 14,
+          "goals_any_zone": 16,
+          "crossing_y_abs_error_mean": 0.1848705683857327
+        },
+        "right": {
+          "shots": 20,
+          "on_target": 9,
+          "goals_any_zone": 14,
+          "crossing_y_abs_error_mean": 0.2529584046196849
+        }
+      },
+      "triggered": 60,
+      "pocket_error_at_trigger_mean": 0.0463780455001671,
+      "approach_seconds_mean": 2.7333333333333334
+    },
+    "zero_action_baseline_15_shots": {
+      "shots": 15,
+      "on_target": 0,
+      "goals_any_zone": 0,
+      "misses": 0,
+      "no_goal": 15,
+      "falls": 0,
+      "contacts": 0,
+      "on_target_rate": 0.0,
+      "kick_rate_legacy": 0.0,
+      "crossing_time_s_mean": NaN,
+      "max_ball_speed_mean": 0.0,
+      "celebrated": 0,
+      "celebration_rmse_rad_mean": NaN,
+      "celebration_max_head_yaw_deg_mean": 0.0,
+      "per_zone": {
+        "centre": {
+          "shots": 5,
+          "on_target": 0,
+          "goals_any_zone": 0,
+          "crossing_y_abs_error_mean": null
+        },
+        "left": {
+          "shots": 5,
+          "on_target": 0,
+          "goals_any_zone": 0,
+          "crossing_y_abs_error_mean": null
+        },
+        "right": {
+          "shots": 5,
+          "on_target": 0,
+          "goals_any_zone": 0,
+          "crossing_y_abs_error_mean": null
+        }
+      },
+      "triggered": 0,
+      "pocket_error_at_trigger_mean": NaN,
+      "approach_seconds_mean": 8.0
+    },
+    "match_kick_standing_shootout": {
+      "on_target": 38,
+      "shots": 60
+    },
+    "machine": "Apple Silicon Mac, 8 cores, CPU only"
+  },
+  "kick_refinement_2026_09_05": {
+    "why": "the on-target reward is a cliff: every in-zone shot paid the same, so nothing reduced lateral spread (90th pct 0.115 m vs zone half-width 0.125 m)",
+    "change": "reward.aim_precision = 8.0, a once-per-episode crossing bonus 8*exp(-((crossing_y-target_y)/zone_half_width)^2); always non-negative so it cannot reward avoiding the goal line",
+    "runs": [
+      {
+        "name": "stage5",
+        "steps": 20000000,
+        "init": "previous final.pt",
+        "reset_log_std": -1.6,
+        "seed": 81
+      },
+      {
+        "name": "stage6",
+        "steps": 20000000,
+        "init": "stage5",
+        "reset_log_std": -1.7,
+        "seed": 86
+      }
+    ],
+    "command": "python -m duck_kick.train --total-steps 20000000 --num-envs 64 --num-workers 8 --seed 86 --out runs/stage6 --init-checkpoint runs/stage5/kick/final.pt --reset-log-std -1.7 --env-overrides '{\"reward.aim_precision\": 8.0, \"celebration.enabled\": false}'",
+    "ab_test_900_shots_unseen_seeds": {
+      "new": {
+        "on_target": 856,
+        "shots": 900,
+        "falls": 1
+      },
+      "previous": {
+        "on_target": 812,
+        "shots": 900,
+        "falls": 2
+      },
+      "difference_pp": 4.89,
+      "ci95_pp": [
+        2.49,
+        7.29
+      ],
+      "verdict": "adopted"
+    },
+    "note": "on 60-shot samples the comparison was inside the noise and an earlier round scored better on the seeds it was diagnosed against (58/60) than on held-out seeds (54/60); adoption used the 900-shot sample only"
+  },
+  "shipped_evaluation": {
+    "shootout60": {
+      "shots": 60,
+      "on_target": 58,
+      "goals_any_zone": 59,
+      "misses": 1,
+      "no_goal": 0,
+      "falls": 0,
+      "contacts": 60,
+      "on_target_rate": 0.9666666666666667,
+      "kick_rate_legacy": 1.0,
+      "crossing_time_s_mean": 0.9356666666666668,
+      "max_ball_speed_mean": 1.405545967517717,
+      "celebrated": 59,
+      "celebration_rmse_rad_mean": 0.07597742146820935,
+      "celebration_max_head_yaw_deg_mean": 45.493997176267634,
+      "per_zone": {
+        "centre": {
+          "shots": 20,
+          "on_target": 20,
+          "goals_any_zone": 20,
+          "crossing_y_abs_error_mean": 0.028907012946335374
+        },
+        "left": {
+          "shots": 20,
+          "on_target": 20,
+          "goals_any_zone": 20,
+          "crossing_y_abs_error_mean": 0.045682483714375756
+        },
+        "right": {
+          "shots": 20,
+          "on_target": 18,
+          "goals_any_zone": 19,
+          "crossing_y_abs_error_mean": 0.07672778119413264
+        }
+      }
+    },
+    "shootout300_seeds_3000_3299": {
+      "shots": 300,
+      "on_target": 284,
+      "goals_any_zone": 297,
+      "misses": 1,
+      "no_goal": 1,
+      "falls": 1,
+      "contacts": 300,
+      "on_target_rate": 0.9466666666666667,
+      "kick_rate_legacy": 0.9933333333333333,
+      "crossing_time_s_mean": 0.9212709030100339,
+      "max_ball_speed_mean": 1.3926830393620624,
+      "celebrated": 298,
+      "celebration_rmse_rad_mean": 0.0769046423240684,
+      "celebration_max_head_yaw_deg_mean": 45.23151689645554,
+      "per_zone": {
+        "centre": {
+          "shots": 100,
+          "on_target": 93,
+          "goals_any_zone": 100,
+          "crossing_y_abs_error_mean": 0.034283328948482315
+        },
+        "left": {
+          "shots": 100,
+          "on_target": 95,
+          "goals_any_zone": 99,
+          "crossing_y_abs_error_mean": 0.05141327240829874
+        },
+        "right": {
+          "shots": 100,
+          "on_target": 96,
+          "goals_any_zone": 98,
+          "crossing_y_abs_error_mean": 0.05695657857703008
+        }
+      }
+    },
+    "checkpoints": {
+      "final.pt": "12171c220b1d8a5704d54508c3c4284275b7929d9193dae2e43eef8e286f810b",
+      "celebration.pt": "d6e41786427a6ee0fe76f78a0f35735d0e3f9b20c5c2989ca72f022691e2bd12",
+      "match_kick.pt": "162348c87ef551d4112a45ae2d613c7b8d21fe66e6ae6ce72da74cd2d9f3f26a",
+      "approach.pt": "3bc27536f8f27c90f85215102b2d7b01286ffa32df6ae49b9927f29e93840ac8",
+      "walk.onnx": "32f3b8bb2d86d83fdf5c78f3dccd6cbb8a3f98410f65d891f10bed70b6f6af36"
+    }
+  },
+  "discarded_sharpened_aim_kernel": {
+    "hypothesis": "the aim-precision bonus saturates: with kernel width = zone half-width (0.125 m) it already pays 82% of max at the measured 5.5 cm mean error, so it stops pulling. Narrowing the kernel to 0.05 m more than doubles the gradient at that error.",
+    "run": "20 M steps, warm start from the shipped checkpoint, reward.aim_precision_width = 0.05, seed 91",
+    "what_happened": "it did exactly what it was designed to do and still lost. Systematic bias with randomization off fell from 5.45 cm to 3.62 cm, but under domain randomization the policy got worse: 808/900 vs 848/900 on target and 8 falls vs 3.",
+    "ab_test_900_shots_seeds_5000": {
+      "sharpened": {
+        "on_target": 808,
+        "shots": 900,
+        "falls": 8
+      },
+      "shipped": {
+        "on_target": 848,
+        "shots": 900,
+        "falls": 3
+      },
+      "difference_pp": -4.44,
+      "ci95_pp": [
+        -6.94,
+        -1.95
+      ],
+      "verdict": "discarded, shipped checkpoint kept"
+    },
+    "reading": "a sharply peaked reward buys nominal precision at the cost of robustness; the wider kernel leaves the policy tolerant of the mass/friction/gain draws that decide real shots"
+  }
+}

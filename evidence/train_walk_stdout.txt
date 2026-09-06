@@ -1,0 +1,313 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788541538.959876    3939 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788541539.863174    3939 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+/root/Open_Duck_Playground/.venv/lib/python3.12/site-packages/jax/_src/interpreters/xla.py:119: RuntimeWarning: overflow encountered in cast
+  return np.asarray(x, dtypes.canonicalize_dtype(x.dtype))
+2026-09-04 17:07:03.518856: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-09-04 17:07:03.518967: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+xml: /root/Open_Duck_Playground/playground/open_duck_mini_v2/xmls/scene_flat_terrain.xml
+actuators: ['left_hip_yaw', 'left_hip_roll', 'left_hip_pitch', 'left_knee', 'left_ankle', 'neck_pitch', 'head_pitch', 'head_yaw', 'head_roll', 'right_hip_yaw', 'right_hip_roll', 'right_hip_pitch', 'right_knee', 'right_ankle']
+joints: ['floating_base', 'left_hip_yaw', 'left_hip_roll', 'left_hip_pitch', 'left_knee', 'left_ankle', 'neck_pitch', 'head_pitch', 'head_yaw', 'head_roll', 'right_hip_yaw', 'right_hip_roll', 'right_hip_pitch', 'right_knee', 'right_ankle']
+backlash joints: []
+actuator joints ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+actuator joints dict: {'left_hip_yaw': 1, 'left_hip_roll': 2, 'left_hip_pitch': 3, 'left_knee': 4, 'left_ankle': 5, 'neck_pitch': 6, 'head_pitch': 7, 'head_yaw': 8, 'head_roll': 9, 'right_hip_yaw': 10, 'right_hip_roll': 11, 'right_hip_pitch': 12, 'right_knee': 13, 'right_ankle': 14}
+floating qpos addr: 0 qvel addr: 0
+[Poly ref data] Processing ...
+[Poly ref data] Done processing
+xml: /root/Open_Duck_Playground/playground/open_duck_mini_v2/xmls/scene_flat_terrain.xml
+actuators: ['left_hip_yaw', 'left_hip_roll', 'left_hip_pitch', 'left_knee', 'left_ankle', 'neck_pitch', 'head_pitch', 'head_yaw', 'head_roll', 'right_hip_yaw', 'right_hip_roll', 'right_hip_pitch', 'right_knee', 'right_ankle']
+joints: ['floating_base', 'left_hip_yaw', 'left_hip_roll', 'left_hip_pitch', 'left_knee', 'left_ankle', 'neck_pitch', 'head_pitch', 'head_yaw', 'head_roll', 'right_hip_yaw', 'right_hip_roll', 'right_hip_pitch', 'right_knee', 'right_ankle']
+backlash joints: []
+actuator joints ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+actuator joints dict: {'left_hip_yaw': 1, 'left_hip_roll': 2, 'left_hip_pitch': 3, 'left_knee': 4, 'left_ankle': 5, 'neck_pitch': 6, 'head_pitch': 7, 'head_yaw': 8, 'head_roll': 9, 'right_hip_yaw': 10, 'right_hip_roll': 11, 'right_hip_pitch': 12, 'right_knee': 13, 'right_ankle': 14}
+floating qpos addr: 0 qvel addr: 0
+[Poly ref data] Processing ...
+[Poly ref data] Done processing
+Observation size: 101
+PPO params: {'action_repeat': 1, 'batch_size': 256, 'clipping_epsilon': 0.2, 'discounting': 0.97, 'entropy_cost': 0.005, 'episode_length': 1000, 'learning_rate': 0.0003, 'max_grad_norm': 1.0, 'normalize_observations': True, 'num_envs': 8192, 'num_evals': 15, 'num_minibatches': 32, 'num_resets_per_eval': 1, 'num_timesteps': 150000000, 'num_updates_per_batch': 4, 'reward_scaling': 1.0, 'unroll_length': 20}
+-----------
+STEP: 0 reward: 13.819211959838867 reward_std: 7.866021156311035
+-----------
+Saving checkpoint (step: 0): /root/walk_runs/2026_09_04_170801_0
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.02309898 -0.01063629  0.13225034  0.09340201 -0.07243857  0.17713651
+  0.15884154  0.12745398 -0.00975044 -0.17488675  0.04536583  0.20230034
+  0.16909903 -0.2125145 ]
+(101,) (101,)
+(101,) (101,)
+Saving checkpoint (step: 10813440): /root/walk_runs/2026_09_04_171313_10813440
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [-0.55965775 -0.6312457  -0.6967347  -0.61777896 -0.61844015  0.9113019
+ -0.17749603 -0.81415623  0.11919324 -0.26186728  0.13359989 -0.60502064
+  0.04634339  0.37343323]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 10813440 reward: 154.0279083251953 reward_std: 129.73745727539062
+-----------
+Saving checkpoint (step: 21626880): /root/walk_runs/2026_09_04_171607_21626880
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [-0.6526623  -0.9430576  -0.32747525 -0.00290159 -0.03310596  0.9255933
+ -0.45405895 -0.22298858 -0.2643509  -0.6146693   0.5512041  -0.79657716
+  0.839518    0.8794329 ]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 21626880 reward: 210.0531463623047 reward_std: 148.0684814453125
+-----------
+Saving checkpoint (step: 32440320): /root/walk_runs/2026_09_04_171901_32440320
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [-0.5447098  -0.6564117  -0.53346074  0.01014106 -0.68838245  0.62228787
+  0.40792015 -0.5867507  -0.3197005  -0.08572173  0.5900098   0.21500364
+  0.5866208   0.8065119 ]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 32440320 reward: 229.1211395263672 reward_std: 154.1627197265625
+-----------
+Saving checkpoint (step: 43253760): /root/walk_runs/2026_09_04_172155_43253760
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.54520494 -0.33621883 -0.04981934  0.31769788  0.38244873  0.5683496
+ -0.18171376 -0.03239527  0.1340096  -0.19896348  0.55503035  0.44411963
+  0.02283806  0.95818514]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 43253760 reward: 267.5572204589844 reward_std: 172.64369201660156
+-----------
+Saving checkpoint (step: 54067200): /root/walk_runs/2026_09_04_172449_54067200
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.517325   -0.48624414 -0.23493908  0.25568354  0.06073985  0.3777511
+ -0.26569033 -0.3441918   0.29464287 -0.12342085 -0.15465397  0.67395085
+  0.11342494  0.8398189 ]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 54067200 reward: 249.85189819335938 reward_std: 167.08084106445312
+-----------
+Saving checkpoint (step: 64880640): /root/walk_runs/2026_09_04_172743_64880640
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.74106544  0.19831467  0.23689677  0.38649434  0.11113945  0.44954053
+  0.02383112 -0.46072078  0.6615704  -0.58820695  0.12008995  0.7913969
+  0.12410612  0.9862011 ]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 64880640 reward: 236.63511657714844 reward_std: 177.0421600341797
+-----------
+Saving checkpoint (step: 75694080): /root/walk_runs/2026_09_04_173037_75694080
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.5237524   0.16354026  0.3919363   0.61430925  0.24111342  0.6426376
+ -0.2082531   0.12621047  0.8049417  -0.32428798  0.01881121  0.84019035
+  0.3587275   0.8905825 ]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 75694080 reward: 289.572021484375 reward_std: 177.12265014648438
+-----------
+Saving checkpoint (step: 86507520): /root/walk_runs/2026_09_04_173332_86507520
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.33752972  0.07527101  0.02757748  0.14321935  0.49938032  0.6226562
+ -0.07877506  0.38601348  0.5588851  -0.15315522  0.16806974  0.6200847
+  0.11783439  0.8248047 ]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 86507520 reward: 259.75103759765625 reward_std: 153.49583435058594
+-----------
+Saving checkpoint (step: 97320960): /root/walk_runs/2026_09_04_173635_97320960
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.63688487  0.01698313  0.21666422  0.2531716   0.12810338  0.49284345
+ -0.5055108   0.652042    0.28913742 -0.07987335 -0.34908473  0.638069
+ -0.22633672  0.6475928 ]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 97320960 reward: 297.2753601074219 reward_std: 162.11729431152344
+-----------
+Saving checkpoint (step: 108134400): /root/walk_runs/2026_09_04_173929_108134400
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.46579686 -0.0248245  -0.04164496  0.12487578  0.46543643  0.6462632
+ -0.20992945  0.47080413  0.1708303  -0.20504683  0.20896907  0.7365417
+ -0.30718058  0.66795105]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 108134400 reward: 250.37228393554688 reward_std: 175.60691833496094
+-----------
+Saving checkpoint (step: 118947840): /root/walk_runs/2026_09_04_174223_118947840
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.40507323  0.10327506 -0.05529435 -0.12650102  0.52523977  0.7335627
+ -0.09273873  0.47153953  0.1152266  -0.02747437 -0.02158712  0.7836929
+ -0.03994567  0.6131238 ]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 118947840 reward: 235.52667236328125 reward_std: 161.73910522460938
+-----------
+Saving checkpoint (step: 129761280): /root/walk_runs/2026_09_04_174517_129761280
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.6084857  -0.14705929  0.25579974  0.614637    0.15747038  0.39821973
+ -0.31120038  0.19398217  0.4268005  -0.15565887  0.33988157  0.42848077
+  0.00791745 -0.09056552]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 129761280 reward: 253.641357421875 reward_std: 159.9952850341797
+-----------
+Saving checkpoint (step: 140574720): /root/walk_runs/2026_09_04_174811_140574720
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.5075406   0.0951702   0.15507619  0.5821605   0.1401112   0.2330526
+  0.1672433  -0.16752191  0.29128012  0.13292356 -0.11533009  0.13775411
+ -0.03502609  0.21465634]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 140574720 reward: 264.21087646484375 reward_std: 172.76649475097656
+-----------
+Saving checkpoint (step: 151388160): /root/walk_runs/2026_09_04_175104_151388160
+ === EXPORT ONNX === 
+(101,) (101,)
+(101,) (101,)
+(1, 14)
+Transferring Dense layer hidden_0, kernel shape (101, 512), bias shape (512,)
+Transferring Dense layer hidden_1, kernel shape (512, 256), bias shape (256,)
+Transferring Dense layer hidden_2, kernel shape (256, 128), bias shape (128,)
+Transferring Dense layer hidden_3, kernel shape (128, 28), bias shape (28,)
+Weights transferred successfully.
+(101,) (101,)
+Tensorflow prediction: [ 0.2182083   0.06141985 -0.13117178  0.14081421  0.69004947  0.06477554
+ -0.10759975 -0.02803809  0.21712892  0.25551388 -0.35430697  0.5917413
+  0.06414269  0.41666707]
+(101,) (101,)
+(101,) (101,)
+-----------
+STEP: 151388160 reward: 243.44375610351562 reward_std: 165.25765991210938
+-----------

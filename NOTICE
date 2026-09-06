@@ -1,0 +1,10 @@
+Microduck Soccer Kick PPO (Simulated)
+Copyright 2026 Scott Middlecamp
+
+This product includes an Open Duck Mini v2 MuJoCo model and mesh assets copied from:
+  Open_Duck_Playground
+  https://github.com/apirrone/Open_Duck_Playground
+  commit b9be205ac64488c23504ca42e5ec790337adeec3
+
+The upstream repository identifies its code as Apache License 2.0 and credits DeepMind,
+Antoine Pirrone, and Steve Nguyen. No upstream endorsement is implied.
